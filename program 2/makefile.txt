@@ -1,0 +1,8 @@
+program.out : main.o funkcje.o menu.o
+	gcc -o program -Wall -ansi main.o funkcje.o menu.o
+main.o : main.c funkcje.h menu.h
+	gcc -c -Wall -ansi main.c
+funkcje.o : funkcje.c funkcje.h
+	gcc -c -Wall -ansi funkcje.c
+menu.o : menu.c menu.h
+	gcc -c -Wall -ansi menu.c
