@@ -5,28 +5,31 @@
 
 int main()
 {
-    int i;
-    int j;
-    my::Matrix macierz(1,1);
-    for(i=0;i<1;i++)
-        for(j=0;j<1;j++)
-            macierz.insert(i,j,i+1);
-    my::Matrix macierz2(3,3);
-    for(i=0;i<3;i++)
-        for(j=0;j<3;j++)
-            macierz2.insert(i,j,i+4);
+    my::vector wektor(1);
+    //my::Matrix matrix(10,10);
+    //my::Matrix matrix2(10,10);
+    my::Matrix matrix3(3,3);
+
+    // matrix.insert(1,1,4);
+    // matrix2.insert(1,1,10);
+  //  std::cout<<matrix;
+   // std::cout<<matrix2;
+   // matrix+matrix2;
+   // std::cout <<matrix2+matrix;
 
 
 
 
 
 
-    macierz=macierz2;
+    /*macierz=macierz2;
     std::cout<< macierz;
     std::cout<<"+"<<std::endl;
     std::cout <<macierz2;
     std::cout<<"="<<std::endl;
     std::cout<<macierz+macierz2;
+*/
+    //std::cout<<matrix;
 
 
     return 0;

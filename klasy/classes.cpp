@@ -5,6 +5,7 @@
 
     my::vector::vector()
     {
+        spaces_=NULL;
         lenght_=0;
     }
 
@@ -16,10 +17,21 @@
 
     my::vector::~vector()
     {
-
-        delete(spaces_);
+        if(lenght_>0)
+           delete(spaces_);
     }
 
+    my::vector::vector(const vector &obj)
+    {
+        int i;
+        int* new_spaces;
+        new_spaces = new int[obj.lenght_];
+        for(i=0;i<obj.lenght_;i++)
+            new_spaces[i]=obj.spaces_[i];
+            lenght_=obj.lenght_;
+         spaces_=new_spaces;
+
+    }
 
 
 
@@ -116,19 +128,28 @@
 
     my::Matrix::Matrix()
     {
-    vector_number_=0;
-    vectors_=new vector;
+     vector_number_=0;
+     vectors_=new vector;
     }
 
 
     my::Matrix::Matrix(const Matrix &obj)
     {
-        int i;
-        vectors_=new vector[obj.vector_number_];
+        int i,j;
+        vector * new_vectors;
+        new_vectors=new vector[obj.vector_number_];
         for(i=0;i<obj.vector_number_;i++)
-            vectors_[i]=obj.vectors_[i];
+            for(j=0;j<obj.rows_number_;j++)
+                new_vectors[i].push_back(0);
+
+
+
+        for(i=0;i<obj.vector_number_;i++)
+            for(j=0;j<obj.rows_number_;j++)
+                new_vectors[i].insert(j,obj.vectors_[i][j]);
         vector_number_=obj.vector_number_;
         rows_number_=obj.rows_number_;
+        vectors_=new_vectors;
 
     }
 
@@ -153,10 +174,12 @@
     {
 
         int i;
+        if(vector_number_>0)
+        {
         for(i=0;i<vector_number_;i++)
             vectors_[i].~vector();
-        delete(vectors_);
-
+         //delete(vectors_);
+        }
     }
 
     int my::Matrix::insert(int col,int row,int value)
@@ -170,6 +193,7 @@
         delete(vectors_);
         vector_number_ =0;
         rows_number_=0;
+        return 1;
     }
 
     int my::Matrix::cols()
@@ -186,7 +210,11 @@ int my::Matrix::rows()
     void my::Matrix::print_matrix()
     {
         int i,j;
-
+        if(vector_number_==0)
+        {
+            std::cout << "pusta macierz";
+            return;
+        }
         for(i=0;i<rows_number_;i++)
         {
             for(j=0;j<vector_number_;j++)

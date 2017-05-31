@@ -15,6 +15,7 @@ namespace my{
     public:
         vector();
         vector(int rozmiar);
+        vector(const vector &obj);
         ~vector();
         int push_back(int number);
         int insert(int place,int new_value);
@@ -65,6 +66,7 @@ namespace my{
             {
                 this->push_back(vector_.spaces_[i]);
             }
+            return *this;
         }
 
         vector operator-(const vector& vector_)
