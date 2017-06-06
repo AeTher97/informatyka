@@ -221,7 +221,7 @@ namespace my{
                 int i;
                 if(vector_number_!=copied_matrix.cols())
                 {
-                    delete(vectors_);
+                    delete[] vectors_;
                     vectors_=new my::vector[copied_matrix.cols()];
                 }
 
@@ -428,13 +428,34 @@ inline std::ostream & operator<<(std::ostream & out, my::Matrix matrix)
     return out;
 }
 
-inline std::istream& operator>>(std::istream & in, my::vector vector_)
+inline std::istream& operator>>(std::istream & in, my::vector *vector_)
 {
-    int i;
+    int i=0,j=0,liczba=0,place=0;
     std::string input;
     in >> input;
-    for(i=0;i<vector_.size();i++)
-        vector_.insert(i,input[2*i]-48);
+    while(input[i]!='\0')
+    {
+
+        if(input[i]-48>-1&&input[i]-48<10)
+        {
+            j=i;
+            while(input[j]!=',' && input[j]!='\0')
+            {
+                liczba=liczba*10+(input[j]-48);
+                j++;
+
+
+            }
+            i=j;
+
+
+            vector_->insert(place,liczba);
+            liczba=0;
+            place++;
+        }
+
+        i++;
+    }
 
     return in;
 }
@@ -446,5 +467,39 @@ inline std::istream& operator>>(std::istream & in, my::vector vector_)
     return out;
 }
 
+
+inline std::istream& operator>>(std::istream & in,my::Matrix *matrix)
+{
+    int liczba=0,i=0,j,col=0,row=0;
+    std::string input;
+    in>>input;
+    while(input[i]!='\0')
+    {
+        if(input[i]-48>-1&&input[i]-48<10)
+        {
+            j=i;
+            while(input[j]-48>-1&&input[j]-48<10)
+            {
+
+                liczba=liczba*10+(input[j]-48);
+                j++;
+            }
+            i=j;
+
+            matrix->insert(col,row,liczba);
+            liczba=0;
+            col++;
+
+        }
+        if(input[i]==';')
+        {
+                col=0;
+                row++;
+        }
+        i++;
+
+    }
+    return in;
+}
 
 #endif // CLASSES_H_INCLUDED

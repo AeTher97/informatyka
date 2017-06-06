@@ -136,20 +136,20 @@
     my::Matrix::Matrix(const Matrix &obj)
     {
         int i,j;
-        vector * new_vectors;
-        new_vectors=new vector[obj.vector_number_];
-        for(i=0;i<obj.vector_number_;i++)
-            for(j=0;j<obj.rows_number_;j++)
-                new_vectors[i].push_back(0);
-
-
+        vectors_=new vector[obj.vector_number_];
 
         for(i=0;i<obj.vector_number_;i++)
             for(j=0;j<obj.rows_number_;j++)
-                new_vectors[i].insert(j,obj.vectors_[i][j]);
+                vectors_[i].push_back(0);
+
+
+
+        for(i=0;i<obj.vector_number_;i++)
+            for(j=0;j<obj.rows_number_;j++)
+                vectors_[i].insert(j,obj.vectors_[i][j]);
         vector_number_=obj.vector_number_;
         rows_number_=obj.rows_number_;
-        vectors_=new_vectors;
+
 
     }
 
@@ -173,13 +173,8 @@
     my::Matrix::~Matrix()
     {
 
-        int i;
-        if(vector_number_>0)
-        {
-        for(i=0;i<vector_number_;i++)
-            vectors_[i].~vector();
-         //delete(vectors_);
-        }
+        delete[] vectors_;
+
     }
 
     int my::Matrix::insert(int col,int row,int value)
