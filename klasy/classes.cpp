@@ -119,11 +119,6 @@
         std::cout << ")\n";
     }
 
-    int my::vector::erase(int start,int finish)
-    {
-
-    }
-
 
 
     my::Matrix::Matrix()

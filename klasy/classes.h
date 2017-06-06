@@ -21,7 +21,6 @@ namespace my{
         int insert(int place,int new_value);
         int size() const;
         int erase(int place);
-        int erase(int start,int finish);
         int clear();
         void print_vector() const;
 
